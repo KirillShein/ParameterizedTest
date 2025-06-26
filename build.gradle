@@ -27,7 +27,7 @@ tasks.withType(Test) {
 
     testLogging {
         lifecycle {
-            events "started", "scipped", "failed", "standart_error", "standart_out"
+            events "started", "skipped", "failed", "standart_error", "standart_out"
             exceptionFormat "short"
         }
     }
