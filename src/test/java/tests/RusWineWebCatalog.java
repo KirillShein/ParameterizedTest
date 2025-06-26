@@ -19,7 +19,7 @@ public class RusWineWebCatalog extends TestBase {
             "Красное", "Белое", "Игристое", "Оранжевое", "Розовое"
     })
     @ParameterizedTest(name = "Для проверки карточек у {0} вина")
-    @Tag("simple")
+    @Tag("BLOCKER")
     void verifyWineCardsContent(String wineSort) {
         rusWineCatalogPage.openPage()
                             .setCategoriesTitle()
