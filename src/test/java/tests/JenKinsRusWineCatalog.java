@@ -6,8 +6,10 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.openqa.selenium.remote.DesiredCapabilities;
+
+
+import java.util.Map;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Selectors.byText;
@@ -18,19 +20,28 @@ public class JenKinsRusWineCatalog {
 
     @BeforeAll
     static void beforeAll() {
-        Configuration.baseUrl = "https://www.ruswine-spb.ru/catalog";
+        Configuration.baseUrl = "https://www.ruswine-spb.ru";
         Configuration.pageLoadStrategy = "eager";
-        Configuration.remote = "https://user1:124@selenoid.autotests.cloud/wb/hub";
+        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
+
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("selenoid:options", Map.<String, Object>of(
+                "enableVNC", true,
+                "enableVideo", true
+        ));
+        Configuration.browserCapabilities = capabilities;
+
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
     }
 
 
     @Test
     @Tag("simple")
     void verifyWineCardsContentJenkinstest() {
-        SelenideLogger.addListener("alluer", new AllureSelenide());
+
 
         step("открыть страницу каталог", ()-> {
-            open("https://www.ruswine-spb.ru/catalog");
+            open("/catalog");
         });
 
         step("кликнуть по названию категории вина", ()-> {
