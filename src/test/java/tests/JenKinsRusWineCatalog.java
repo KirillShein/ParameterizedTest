@@ -24,7 +24,8 @@ public class JenKinsRusWineCatalog {
     static void beforeAll() {
         Configuration.baseUrl = "https://www.ruswine-spb.ru";
         Configuration.pageLoadStrategy = "eager";
-        Configuration.remote = System.getProperty("driver_url");
+        Configuration.browser = System.getProperty("browser", "chrome");
+        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
